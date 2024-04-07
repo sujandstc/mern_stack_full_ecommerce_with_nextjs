@@ -23,10 +23,16 @@ mongoose
 
 import "./model";
 import VendorsAuthRoute from "./modules/vendors/auth/vendors.auth.routes";
+import VendorsProductRoute from "./modules/vendors/products/vendors.products.routes";
+import WebsiteProductsRouter from "./modules/website/products/website.products.routes";
 
 // Routes...
 
 app.use("/api/v1/vendors/auth", VendorsAuthRoute);
+app.use("/api/v1/vendors/products", VendorsProductRoute);
+
+// Website related..
+app.use("/api/v1/website/products", WebsiteProductsRouter);
 
 app.use(errorHandler);
 
