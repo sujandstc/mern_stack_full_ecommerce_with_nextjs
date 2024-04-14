@@ -1,24 +1,24 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import vendorModel from "../../../../models/vendors.model";
+import usersModel from "../../../../models/users.model";
 
-const VendorsSignup = async (req: Request, res: Response) => {
+const UserSignup = async (req: Request, res: Response) => {
   // Getting data from req.body.
-  const { email, password, confirm_password, business_name } = req.body;
+  const { email, password, confirm_password, name, location } = req.body;
 
   // General validations...
   if (!email) throw "Email is required!";
   if (!password) throw "Password is required";
   if (password != confirm_password)
     throw "Password and confirm password donot match!";
-  if (!business_name) throw "Business name is required!";
-  if (business_name.length < 3)
-    throw "Name must be at least 3 characters long!";
+  if (!name) throw "Name is required!";
+  if (name.length < 3) throw "Name must be at least 3 characters long!";
+  if (!location) throw "Location is requiredQ!";
 
   // Database validation...
 
-  const existingUser = await vendorModel.findOne({
+  const existingUser = await usersModel.findOne({
     email,
   });
 
@@ -30,25 +30,26 @@ const VendorsSignup = async (req: Request, res: Response) => {
 
   let encryptedPassword = await bcrypt.hash(password, 8);
 
-  const createdUser = await vendorModel.create({
+  const createdUser = await usersModel.create({
     email,
-    business_name,
+    name,
+    location,
     password: encryptedPassword.toString(),
   });
 
   const jwtPayload = {
-    vendor_id: createdUser._id,
+    user_id: createdUser._id,
   };
 
-  const accessToken = jwt.sign(jwtPayload, process.env!.jwt_secret_vendor!, {
+  const accessToken = jwt.sign(jwtPayload, process.env!.jwt_secret_user!, {
     expiresIn: "90days",
   });
 
   res.status(200).json({
     status: "success",
-    message: "Account created successfully!",
+    message: "User account created successfully!",
     accessToken,
   });
 };
 
-export default VendorsSignup;
+export default UserSignup;

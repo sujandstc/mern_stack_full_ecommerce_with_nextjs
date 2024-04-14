@@ -25,6 +25,8 @@ import "./model";
 import VendorsAuthRoute from "./modules/vendors/auth/vendors.auth.routes";
 import VendorsProductRoute from "./modules/vendors/products/vendors.products.routes";
 import WebsiteProductsRouter from "./modules/website/products/website.products.routes";
+import UserAuthRouter from "./modules/website/userAuth/userauth.routes";
+import UserRoute from "./modules/website/users/userauth.routes";
 
 // Routes...
 
@@ -33,6 +35,8 @@ app.use("/api/v1/vendors/products", VendorsProductRoute);
 
 // Website related..
 app.use("/api/v1/website/products", WebsiteProductsRouter);
+app.use("/api/v1/website/users/auth", UserAuthRouter);
+app.use("/api/v1/website/users", UserRoute);
 
 app.use(errorHandler);
 

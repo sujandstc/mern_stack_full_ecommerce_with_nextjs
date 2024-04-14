@@ -1,9 +1,9 @@
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import vendorModel from "../../../../models/vendors.model";
+import usersModel from "../../../../models/users.model";
 
-const vendorsLogin = async (req: Request, res: Response) => {
+const usersLogin = async (req: Request, res: Response) => {
   // Getting data from req.body.
   const { email, password } = req.body;
 
@@ -13,13 +13,13 @@ const vendorsLogin = async (req: Request, res: Response) => {
 
   // Get user that matches email provided by user...
 
-  const getUser = await vendorModel
+  const getUser = await usersModel
     .findOne({
       email: email,
     })
     .select("+password");
 
-  if (!getUser) throw "This vendor email doesnot exist!";
+  if (!getUser) throw "This user email doesnot exist!";
 
   // If everything is good, move forward!
 
@@ -30,10 +30,10 @@ const vendorsLogin = async (req: Request, res: Response) => {
   // await usersModel.updateOne({ email: email }, { auth_id: uniqueId });
 
   const jwtPayload = {
-    vendor_id: getUser._id,
+    user_id: getUser._id,
   };
 
-  const accessToken = jwt.sign(jwtPayload, process.env!.jwt_secret_vendor!, {
+  const accessToken = jwt.sign(jwtPayload, process.env!.jwt_secret_user!, {
     expiresIn: "90days",
   });
 
@@ -44,4 +44,4 @@ const vendorsLogin = async (req: Request, res: Response) => {
   });
 };
 
-export default vendorsLogin;
+export default usersLogin;

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
-const vendorAuth = async (req: Request, res: Response, next: NextFunction) => {
+const usersAuth = async (req: Request, res: Response, next: NextFunction) => {
   // Auth data is mostly sent via authorization header.. so, checking it..
 
   if (!req.headers.authorization) throw "Authorization error!";
@@ -14,10 +14,10 @@ const vendorAuth = async (req: Request, res: Response, next: NextFunction) => {
   // Veryify jwt
   try {
     // If this fails, an error is thrown which will be caught by catch block...
-    const jwtVerify = jwt.verify(accessToken, process.env!.jwt_secret_vendor!);
+    const jwtVerify = jwt.verify(accessToken, process.env!.jwt_secret_user!);
     // If this is successful, jwt verify will give the decoded payload... We then save that payload to req.user object
     // Hypothetically, id card has been kept on your neck..
-    req.vendor = jwtVerify;
+    req.user = jwtVerify;
   } catch (e) {
     // We are using throw there to give an error that will later be caught by errorHandler..
     throw "Authorization error! JWT mismatch!";
@@ -27,4 +27,4 @@ const vendorAuth = async (req: Request, res: Response, next: NextFunction) => {
   next();
 };
 
-export default vendorAuth;
+export default usersAuth;
