@@ -1,10 +1,21 @@
+import { base_url } from "@/config";
 import axios from "axios";
 import Link from "next/link";
 
 const ProductsPage = async () => {
-  const response = await axios.get(
-    "http://localhost:8000/api/v1/website/products"
-  );
+  let response: any;
+
+  try {
+    response = await axios.get(`${base_url}/website/products`);
+  } catch (e) {
+    return (
+      <>
+        <div className="h-[100vh] w-[100vw] font-bold text-[35px] text-gray-500 flex items-center justify-center ">
+          Oh no! Something went wrong, try again later.
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
