@@ -1,63 +1,65 @@
-"use client";
+'use client';
 
-import axiosInstance from "@/app/utils/axiosInstance";
-import { IProduct, IcartItem } from "@/app/utils/interfaces";
-import { useEffect, useState } from "react";
+import axiosInstance from '@/app/utils/axiosInstance';
+import { IProduct, IcartItem } from '@/app/utils/interfaces';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 const CartItemComponenet = (props: any) => {
-  const cartItem: IcartItem = props.cartItem;
+	const cartItem: IcartItem = props.cartItem;
 
-  const [quantity, setQuanity] = useState(0);
+	const [quantity, setQuanity] = useState(0);
 
-  const addQuantity = async () => {
-    try {
-      const response = await axiosInstance.post(`/website/products/addToCart`, {
-        product_id: cartItem.product_id._id,
-        quantity: 1,
-      });
-    } catch (e) {}
-  };
+	const addQuantity = async () => {
+		try {
+			const response = await axiosInstance.post(`/website/products/addToCart`, {
+				product_id: cartItem.product_id._id,
+				quantity: 1,
+			});
+		} catch (e) {}
+	};
 
-  const decreaseQuantity = async () => {
-    try {
-      const response = await axiosInstance.delete(
-        `/website/products/removeFromCart/${cartItem._id}`
-      );
-    } catch (e) {}
-  };
+	const decreaseQuantity = async () => {
+		try {
+			const response = await axiosInstance.delete(`/website/products/removeFromCart/${cartItem._id}`);
+		} catch (e) {}
+	};
 
-  useEffect(() => {
-    setQuanity(cartItem.quantity);
-  }, []);
+	useEffect(() => {
+		setQuanity(cartItem.quantity);
+	}, []);
 
-  return (
-    <>
-      {cartItem.product_id.product_name}
+	return (
+		<div className='flex lg:flex-row flex-col space-y-4 lg:space-y-0 bg-gray-100 p-3 rounded-md mb-2 justify-between items-center'>
+			<h1 className=' font-bold text-xl'>
+				{' '}
+				<Link href={`/product/${cartItem.product_id._id}`}>{cartItem.product_id.product_name}</Link>
+			</h1>
 
-      <div className="flex">
-        <div
-          className="p-5"
-          onClick={() => {
-            if (quantity < 2) return;
-            setQuanity(quantity - 1);
-            decreaseQuantity();
-          }}
-        >
-          -
-        </div>
-        <div className="p-5">{quantity}</div>
-        <div
-          className="p-5"
-          onClick={() => {
-            setQuanity(quantity + 1);
-            addQuantity();
-          }}
-        >
-          +
-        </div>
-      </div>
-    </>
-  );
+			<div className='flex bg-gray-200 rounded-md '>
+				<div
+					className='p-5 bg-slate-400'
+					onClick={() => {
+						if (quantity < 2) return;
+						setQuanity(quantity - 1);
+						decreaseQuantity();
+					}}
+				>
+					-
+				</div>
+				<div className='p-5'>{quantity}</div>
+				<div
+					className='p-5 bg-slate-400'
+					onClick={() => {
+						setQuanity(quantity + 1);
+						addQuantity();
+					}}
+				>
+					+
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export default CartItemComponenet;

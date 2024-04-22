@@ -1,88 +1,97 @@
-"use client";
+'use client';
 
-import { Form, Input, Button } from "antd";
-import { message } from "antd";
-import axios from "axios";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import axiosInstance from "../utils/axiosInstance";
+import { Form, Input, Button } from 'antd';
+import { message } from 'antd';
+import axios from 'axios';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import axiosInstance from '../utils/axiosInstance';
+import Image from 'next/image';
 
 const Login = () => {
-  const navigation = useRouter();
+	const navigation = useRouter();
 
-  const onFinish = async (values: any) => {
-    try {
-      const response = await axiosInstance.post(
-        `/website/users/auth/login`,
-        values
-      );
+	const onFinish = async (values: any) => {
+		try {
+			const response = await axiosInstance.post(`/website/users/auth/login`, values);
 
-      localStorage.setItem("accessToken", response.data.accessToken);
-      navigation.push("/products");
-      message.success("Logged in successfully!");
-    } catch (e: any) {
-      if (e && e.response && e.response.data && e.response.data.message) {
-        message.error(e.response.data.message);
-      } else {
-        message.error("Connection failed. Try again!");
-      }
-    }
-  };
+			localStorage.setItem('accessToken', response.data.accessToken);
+			navigation.push('/products');
+			message.success('Logged in successfully!');
+		} catch (e: any) {
+			if (e && e.response && e.response.data && e.response.data.message) {
+				message.error(e.response.data.message);
+			} else {
+				message.error('Connection failed. Try again!');
+			}
+		}
+	};
 
-  return (
-    <>
-      <div className="h-[100vh] w-[100vw] bg-green-300 flex items-center justify-center">
-        <div className="bg-gray-200 p-5 font-bold">
-          Login: <br />
-          <br />
-          <Form
-            name="basic"
-            labelCol={{ span: 8 }}
-            wrapperCol={{ span: 16 }}
-            style={{ maxWidth: 600 }}
-            initialValues={{ remember: true }}
-            onFinish={onFinish}
-            autoComplete="off"
-          >
-            <Form.Item
-              label="Email"
-              name="email"
-              rules={[{ required: true, message: "Please input your email!" }]}
-            >
-              <Input />
-            </Form.Item>
+	return (
+		<>
+			<section className='container mx-auto mt-10'>
+				<div className='2xl:mx-28  lg:mx-4 mx-2 gird flex items-center justify-center h-[100vh]'>
+					<div className='flex items-center justify-center'>
+						<div className='bg-gray-200 px-4 py-10 rounded-md md:w-[500px] w-[100vw]'>
+							<div className='flex justify-center'>
+								<Image src={'/image.jpg'} alt='' className=' w-[100px] mb-10' width={1000} height={1000} />
+							</div>
+							<Form name='basic' size='small' layout='vertical' className='w-full ' initialValues={{ remember: true }} onFinish={onFinish} autoComplete='off'>
+								<Form.Item
+									required
+									name='email'
+									label={<div className='font-bold'>Email</div>}
+									rules={[
+										{
+											required: true,
+											message: 'Email is required.',
+										},
+										{
+											pattern: /^(?!.*\.\.)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+											message: 'Invalid email format.',
+										},
+									]}
+									className='w-full'
+								>
+									<Input type='email' className='border border-gray-300 rounded-md w-full py-2 px-4' />
+								</Form.Item>
+								<Form.Item
+									name='password'
+									label={<div className='font-bold'>Password</div>}
+									rules={[
+										{
+											required: true,
+											message: 'Password is required.',
+										},
+									]}
+									className='w-full'
+								>
+									<Input.Password className='border border-gray-300 rounded-md w-full py-2 px-4' />
+								</Form.Item>
 
-            <Form.Item
-              label="Password"
-              name="password"
-              rules={[
-                { required: true, message: "Please input your password!" },
-              ]}
-            >
-              <Input.Password />
-            </Form.Item>
-
-            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-              <Button type="default" htmlType="submit" className="font-bold">
-                Login
-              </Button>
-            </Form.Item>
-          </Form>
-          <br />
-          <br />
-          <Link className=" text-blue-800 font-bold" href={"/forgot-pw"}>
-            Forgot password?
-          </Link>
-          <br />
-          <br />
-          Don't have an account? <br /> <br />
-          <Link href={"/register"}>
-            <b> Create new account!</b>
-          </Link>
-        </div>
-      </div>
-    </>
-  );
+								<Form.Item>
+									<button type='submit' className='bg-black text-white  font-semibold px-4 py-2 rounded-md w-full '>
+										Login
+									</button>
+								</Form.Item>
+							</Form>
+							<div className='mb-6'>
+								<Link className='' href={'/forgot-pw'}>
+									Forgot password?
+								</Link>
+							</div>
+							<div className='text-center '>
+								New to E Pasal? &nbsp;
+								<Link href={'/register'} className='cursor-pointer font-bold underline underline-offset-4'>
+									Create new account!
+								</Link>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</>
+	);
 };
 
 export default Login;
