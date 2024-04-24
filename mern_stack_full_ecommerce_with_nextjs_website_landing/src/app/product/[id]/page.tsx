@@ -47,18 +47,23 @@ const SingleProductPage = async ({ params }: any) => {
 							]}
 						/>
 					</div>
+					<div className='mt-6  lg:hidden'>
+						<h1 className='text-3xl font-bold mb-4 '>{product.product_name}</h1>
+					</div>
 					<div className='grid grid-cols-12 gap-4 '>
-						<div className='lg:col-span-6 col-span-12'>
-							<div>
-								<Image src={product.product_image} alt='product_image' className=' w-full rounded-lg' width={500} height={200} />
+						<div className='flex justify-center lg:col-span-6 col-span-12'>
+							<div className='md:h-[50rem] w-[30rem] p-3 pt-8'>
+								<Image src={product.product_image} alt='product_image' className='w-full   rounded-lg' width={500} height={200} />
 							</div>
 						</div>
 						<div className='lg:col-span-6 col-span-12'>
-							<div className=' px-4  mt-6'>
+							<div className='mt-6 hidden lg:block'>
 								<h1 className='text-5xl font-bold mb-4 '>{product.product_name}</h1>
 
 								<p className='font-medium text-4xl'>Rs. {product.product_price}</p>
 							</div>
+							<p className='font-medium text-4xl lg:hidden'>Rs. {product.product_price}</p>
+							<div className='lg:h-10'></div>
 							<p className='my-3'>Shipping is calculated at checkout</p>
 							<AddToCartComponent id={response.data.data[0]._id} />
 							<div className='mt-10'></div>

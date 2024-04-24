@@ -30,9 +30,9 @@ const Login = () => {
 	return (
 		<>
 			<section className='container mx-auto mt-10'>
-				<div className='2xl:mx-28  lg:mx-4 mx-2 gird flex items-center justify-center h-[100vh]'>
+				<div className='2xl:mx-28  lg:mx-4 mx-2 gird flex items-center justify-center h-[80vh]'>
 					<div className='flex items-center justify-center'>
-						<div className='bg-gray-200 px-4 py-10 rounded-md md:w-[500px] w-[100vw]'>
+						<div className='shadow-xl px-4 py-10 rounded-md md:w-[500px] w-[100vw]'>
 							<div className='flex justify-center'>
 								<Image src={'/image.jpg'} alt='' className=' w-[100px] mb-10' width={1000} height={1000} />
 							</div>

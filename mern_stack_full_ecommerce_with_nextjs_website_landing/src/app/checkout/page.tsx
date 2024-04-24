@@ -24,6 +24,7 @@ const CheckoutPage = () => {
 		getCartItems();
 	}, []);
 
+
 	return (
 		<section className='container mx-auto mt-24'>
 			<div className='2xl:mx-28  lg:mx-4 mx-2 '>
