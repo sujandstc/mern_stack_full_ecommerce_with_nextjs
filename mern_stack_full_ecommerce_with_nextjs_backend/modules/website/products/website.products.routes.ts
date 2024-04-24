@@ -1,5 +1,4 @@
 import { Router } from "express";
-import getPublicProducts from "./controllers/getPublicProducts";
 import usersAuth from "../../../handlers/usersAuth";
 import addToCart from "./controllers/addToCart";
 import getCartItems from "./controllers/getCartItems";
@@ -7,10 +6,13 @@ import removeItemFromCart from "./controllers/removeItemFromCart";
 import checkOut from "./controllers/checkOut";
 import cancelOrder from "./controllers/cancelOrder";
 import getOrders from "./controllers/getOrders";
+import getRandomProducts from "./controllers/getRandomProduct";
+import getPublicProducts from "./controllers/getPublicProducts";
 
 const WebsiteProductsRouter = Router();
 
 WebsiteProductsRouter.get("/", getPublicProducts);
+WebsiteProductsRouter.get("/random", getRandomProducts);
 
 WebsiteProductsRouter.use(usersAuth);
 

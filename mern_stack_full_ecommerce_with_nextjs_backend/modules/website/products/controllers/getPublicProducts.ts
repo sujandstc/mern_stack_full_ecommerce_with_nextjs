@@ -1,20 +1,19 @@
 import { Request, Response } from "express";
 import productsModel from "../../../../models/products.model";
-import reusableMongoose from "../../../../handlers/reusableMongoose";
 
 const getPublicProducts = async (req: Request, res: Response) => {
-  const queryData = reusableMongoose({
-    // kun model bata data fing garne ya lekhne...
-    mongooseQuery: productsModel.find({}),
-    // Query pass garne..
-    queryObject: req.query,
-    // Kun kun fields bata searcg garne, ya array ma halne..
-    searchFields: ["products_name", "product_description"],
-  });
+  const { page, limit } = req.query;
 
-  // Query chalaune..
+  let pagination_page = parseInt((page ?? 0).toString());
+  let pagination_limit = parseInt((limit ?? 0).toString());
 
-  const data = await queryData.query.populate("vendor_id", "business_name");
+  let skip = 0;
+
+  if (pagination_page && pagination_page) {
+    skip = pagination_page * pagination_limit;
+  }
+
+  const data = await productsModel.find().skip(skip).limit(pagination_limit);
 
   res.status(200).json({
     status: "success",
