@@ -8,10 +8,11 @@ import cancelOrder from "./controllers/cancelOrder";
 import getOrders from "./controllers/getOrders";
 import getRandomProducts from "./controllers/getRandomProduct";
 import getPublicProducts from "./controllers/getPublicProducts";
+import getPublicProductsReusableMongoose from "./controllers/getPublicProductsReusableMongoose";
 
 const WebsiteProductsRouter = Router();
 
-WebsiteProductsRouter.get("/", getPublicProducts);
+WebsiteProductsRouter.get("/", getPublicProductsReusableMongoose);
 WebsiteProductsRouter.get("/random", getRandomProducts);
 
 WebsiteProductsRouter.use(usersAuth);

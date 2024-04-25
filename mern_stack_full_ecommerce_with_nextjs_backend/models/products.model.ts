@@ -24,6 +24,10 @@ const productsSchema = new mongoose.Schema(
     product_description: {
       type: String,
     },
+
+    is_top_product: {
+      type: Boolean,
+    },
   },
   {
     timestamps: true,

@@ -12,7 +12,7 @@ const getPublicProductsReusableMongoose = async (
     // Query pass garne..
     queryObject: req.query,
     // Kun kun fields bata searcg garne, ya array ma halne..
-    searchFields: ["products_name", "product_description"],
+    searchFields: ["product_name", "product_description"],
   });
 
   // Query chalaune..
