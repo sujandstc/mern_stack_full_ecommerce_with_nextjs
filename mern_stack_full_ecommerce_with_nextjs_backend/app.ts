@@ -27,11 +27,13 @@ import VendorsProductRoute from "./modules/vendors/products/vendors.products.rou
 import WebsiteProductsRouter from "./modules/website/products/website.products.routes";
 import UserAuthRouter from "./modules/website/userAuth/userauth.routes";
 import UserRoute from "./modules/website/users/userauth.routes";
+import VendorOrderRoute from "./modules/vendors/orders/orders.routes";
 
 // Routes...
 
 app.use("/api/v1/vendors/auth", VendorsAuthRoute);
 app.use("/api/v1/vendors/products", VendorsProductRoute);
+app.use("/api/v1/vendors/orders", VendorOrderRoute);
 
 // Website related..
 app.use("/api/v1/website/products", WebsiteProductsRouter);

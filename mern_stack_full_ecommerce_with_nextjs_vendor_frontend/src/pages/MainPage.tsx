@@ -4,6 +4,7 @@ import Header from "../pageComponents/header";
 import { Route, Routes } from "react-router-dom";
 import Dashboard from "../nestedPages/dashboard";
 import Products from "../nestedPages/products";
+import Orders from "../nestedPages/orders";
 
 const MainPage = () => {
   useEffect(() => {
@@ -30,6 +31,7 @@ const MainPage = () => {
               <Route path="/" element={<Dashboard />} />
 
               <Route path="/products" element={<Products />} />
+              <Route path="/orders" element={<Orders />} />
             </Routes>
           </div>
         </div>

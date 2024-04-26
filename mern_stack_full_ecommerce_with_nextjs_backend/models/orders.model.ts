@@ -14,6 +14,12 @@ const ordersSchema = new mongoose.Schema(
       required: true,
     },
 
+    vendor_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "vendors",
+      required: true,
+    },
+
     quantity: {
       type: Number,
       required: true,
